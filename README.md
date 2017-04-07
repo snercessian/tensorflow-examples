@@ -5,4 +5,5 @@ The repository includes (so far):
 1. Convolutional neural network
 2. Auto-encoder
 3. Convolutional auto-encoder
-4. Generative adversarial neural network
+4. Denoising convolutional auto-encoder
+5. Generative adversarial neural network
