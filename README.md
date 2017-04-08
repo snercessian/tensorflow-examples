@@ -7,10 +7,8 @@ The repository includes (so far):
 3. Convolutional auto-encoder (CAE): [code](cae.py)
 4. Denoising convolutional auto-encoder (DCAE): [code](dcae.py)
 5. Generative adversarial neural network (GAN): [code](gan.py)
-
-Coming soon:
-6. Deep convolutional generative adversarial neural network (DCGAN)
-7. Super-resolution using CNN
-8. Super-resolution using DCGAN
-9. Recurrent neural network (for classification)
-10. Recurrent neural network (for forecasting)
+6. Deep convolutional generative adversarial neural network (DCGAN): (coming soon)
+7. Super-resolution using CNN: (coming soon)
+8. Super-resolution using DCGAN: (coming soon)
+9. Recurrent neural network (for classification): (coming soon)
+10. Recurrent neural network (for forecasting): (coming soon)
