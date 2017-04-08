@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 IMAGE_SIZE      = 28 
 NUM_PIXELS      = IMAGE_SIZE**2
 
-# auto-encoder architecture parameters
+# GAN architecture parameters
 NUM_INPUTS      = 100
 NUM_HIDDEN      = 128
 
