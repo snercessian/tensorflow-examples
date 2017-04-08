@@ -4,7 +4,6 @@
 Super-resolution using CNN on MNIST
 Very simple approach: use transposed convolutions to get lo-res to match hi-res image
 Resembles largely the generator of a DCGAN, except that the downsampled image is used instead of a generator code
-
 @author: shahannercessian
 """
 
@@ -46,6 +45,7 @@ def conv2d_transpose_2x2(x, W, shape):
     return tf.nn.conv2d_transpose(x, W, shape, strides=[1, 2, 2, 1], padding='SAME')
 
 def main():
+    tf.set_random_seed(1)
     # load MNIST dataset
     print('Loading data...')
     mnist = input_data.read_data_sets('MNIST_data', one_hot=True)
