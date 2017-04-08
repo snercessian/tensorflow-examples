@@ -1,7 +1,7 @@
 # tensorflow-examples
 The goal of this repository is to provide a set of simple-to-understand examples of different deep learning architectures implemented using Google TensorFlow.  Each Python script in the repository is a fully self-contained example applied to the MNIST dataset.  
 
-The repository includes (so far):  
+The repository includes:  
 1. Convolutional neural network (CNN): [code](cnn.py)
 2. Auto-encoder (AE): [code](ae.py)
 3. Convolutional auto-encoder (CAE): [code](cae.py)
