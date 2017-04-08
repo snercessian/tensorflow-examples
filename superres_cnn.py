@@ -2,9 +2,8 @@
 
 """
 Super-resolution using CNN on MNIST
-Very simple approach: Essentially transposed convolution to get lores to match hires image
-Resembles largely the generator of a DCGAN
-
+Very simple approach: use transposed convolutions to get lo-res to match hi-res image
+Resembles largely the generator of a DCGAN, except that the downsampled image is used instead of a generator code
 
 @author: shahannercessian
 """
@@ -67,7 +66,7 @@ def main():
     activation = tf.nn.sigmoid
     
     # Project existing lo-res image
-    # This is similar to simulating NUM_FILT2 images as would normally be present at the decoder an auto-encoder
+    # This is similar to simulating NUM_FILT2 images as would normally be present at the decoder stage of an auto-encoder
     W_fc1 = init_variable([NUM_PIXELS_IN, NUM_HIDDEN])
     b_fc1 = init_variable([NUM_HIDDEN])
     h_fc1 = activation(tf.matmul(x_small_flat, W_fc1) + b_fc1)
