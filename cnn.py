@@ -71,7 +71,6 @@ def main():
     dims = h_pool2.get_shape().as_list() ; 
                             
     NUM_FEATS = dims[1]*dims[2]*dims[3] ;
-    print(NUM_FEATS)
     h_pool2_flat = tf.reshape(h_pool2, [-1, NUM_FEATS]) # vectorize feature maps
     
     W_fc1 = init_variable([NUM_FEATS, NUM_HIDDEN])
