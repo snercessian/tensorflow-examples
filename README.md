@@ -10,7 +10,7 @@ The repository includes:
 6. Super-resolution using CNN: [code](superres_cnn.py)
 7. Batch normalization: [code](bn.py)
 8. Recurrent neural network (for classification): [code](lstm_class.py)
-9. Recurrent neural network (for prediction/forecasting): (coming soon)
+9. Recurrent neural network (for prediction/forecasting): [code](lstm_pred.py)
 10. Deep convolutional generative adversarial neural network (DCGAN): (coming soon)
 11. Super-resolution using DCGAN: (coming soon)
 
