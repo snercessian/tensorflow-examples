@@ -31,12 +31,6 @@ WEIGHT_DECAY    = 1e-4 # regularization
 def init_variable(shape):
     return tf.Variable(tf.random_normal(shape))
 
-def conv2d(x, W):
-    return tf.nn.conv2d(x, W, strides=[1, 1, 1, 1], padding='SAME')
-
-def max_pool_2x2(x):
-    return tf.nn.max_pool(x, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
-
 def main():
     # load MNIST dataset
     print('Loading data...')
@@ -48,6 +42,10 @@ def main():
     x       = tf.placeholder(tf.float32, shape=[None, NUM_TIMESTEPS, NUM_INPUTS])
     y_      = tf.placeholder(tf.float32, shape=[None, NUM_CLASSES])
     
+    SAMPLE_SIZE = tf.shape(x)[0]
+        
+    activation = tf.nn.relu
+    
     # Fully connected layers
     W_fc1 = init_variable([NUM_INPUTS, NUM_HIDDEN])
     b_fc1 = init_variable([NUM_HIDDEN])
@@ -57,12 +55,12 @@ def main():
     def RNN(x,W_fc1,b_fc1,W_fc2,b_fc2):
         # Fully connected layer
         x = tf.reshape(x,[-1,NUM_INPUTS])
-        h_fc1 = tf.nn.relu(tf.matmul(x, W_fc1) + b_fc1)
+        h_fc1 = activation(tf.matmul(x, W_fc1) + b_fc1)
         h_fc1 = tf.reshape(h_fc1, [-1, NUM_TIMESTEPS, NUM_HIDDEN])
         
         # LSTM cell
         lstm_cell = tf.contrib.rnn.BasicLSTMCell(NUM_HIDDEN, forget_bias=1.0, state_is_tuple=True)
-        init_state = lstm_cell.zero_state(BATCH_SIZE,dtype=tf.float32)
+        init_state = lstm_cell.zero_state(SAMPLE_SIZE,dtype=tf.float32)
         outputs, states = tf.nn.dynamic_rnn(lstm_cell,h_fc1, initial_state=init_state, time_major=False)
         
         # Output layer
@@ -97,9 +95,11 @@ def main():
             accuracy_batch = accuracy.eval(feed_dict={x: batch_x, y_: batch_y})
             print("Batch accuracy (step %d): %g" % (i, accuracy_batch))
     
-    test_x  = mnist.test.images[:BATCH_SIZE].reshape( (-1, NUM_TIMESTEPS, NUM_INPUTS))
-    test_y  = mnist.test.labels[:BATCH_SIZE]
-    accuracy_test  = accuracy.eval(feed_dict={x:  test_x, y_:  test_y})
+    train_x  = mnist.train.images.reshape((-1, NUM_TIMESTEPS, NUM_INPUTS))
+    test_x   = mnist.test.images.reshape( (-1, NUM_TIMESTEPS, NUM_INPUTS))
+    accuracy_train = accuracy.eval(feed_dict={x: train_x, y_: mnist.train.labels})
+    accuracy_test  = accuracy.eval(feed_dict={x:  test_x, y_:  mnist.test.labels})
+    print("Train accuracy (step %d): %g" % (i, accuracy_train))
     print("Test  accuracy (step %d): %g" % (i, accuracy_test ))
-
+    
 main()
