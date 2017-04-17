@@ -74,7 +74,7 @@ def main():
     y_lstm = RNN(x,W_fc1,b_fc1,W_fc2,b_fc2)
     # cost function
     cross_entropy  = tf.reduce_sum(tf.nn.softmax_cross_entropy_with_logits(labels=y_, logits=y_lstm))
-    regularization = WEIGHT_DECAY*(tf.nn.l2_loss(W_fc1))
+    regularization = WEIGHT_DECAY*(tf.nn.l2_loss(W_fc1)+tf.nn.l2_loss(W_fc2))
     loss           = cross_entropy+regularization
     
     correct_prediction = tf.equal(tf.argmax(y_lstm,1), tf.argmax(y_,1))
