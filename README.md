@@ -1,5 +1,5 @@
 # tensorflow-examples
-The goal of this repository is to provide a set of simple-to-understand examples of different deep learning architectures implemented using TensorFlow.  Each Python script in the repository is a fully self-contained example applied to the MNIST dataset.  
+The goal of this repository is to provide a set of simple-to-understand examples of different deep learning architectures implemented in TensorFlow.  Each Python script in the repository is a fully self-contained example applied to the MNIST dataset.  
 
 The repository includes:  
 1. Convolutional neural network (CNN): [code](cnn.py)
