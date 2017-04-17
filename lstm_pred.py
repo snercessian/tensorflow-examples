@@ -62,7 +62,9 @@ def main():
     
     SAMPLE_SIZE = tf.shape(x)[0]
         
-    activation = tf.nn.sigmoid
+    activation     = tf.nn.relu
+    activation_out = tf.nn.sigmoid
+    
     # Fully connected layers
     W_fc1 = init_variable([NUM_INPUTS, NUM_HIDDEN])
     b_fc1 = init_variable([NUM_HIDDEN])
@@ -83,7 +85,7 @@ def main():
         
         # Output layer
         outputs = tf.unstack(tf.transpose(outputs, [1,0,2]))
-        h_fc2 = activation(tf.matmul(outputs[-1],W_fc2)+b_fc2)
+        h_fc2 = activation_out(tf.matmul(outputs[-1],W_fc2)+b_fc2)
 
         return h_fc2
         
@@ -102,9 +104,10 @@ def main():
     sess = tf.InteractiveSession()
     sess.run(tf.global_variables_initializer())
     
-    ex0 = mnist.train.images[0,:]
+    ex0 = mnist.train.images[15,:]
     ex0 = ex0.reshape((IMAGE_SIZE,IMAGE_SIZE))
-    ex0[NUM_TIMESTEPS:,:] = 0 ; 
+    ex0_half = np.copy(ex0) ; 
+    ex0_half[NUM_TIMESTEPS:,:] = 0 ; 
     for i in range(NUM_STEPS):
         batch_x, _ = mnist.train.next_batch(BATCH_SIZE)
         batch_x, batch_y = gen_training_data(batch_x,NUM_TIMESTEPS)
@@ -114,11 +117,17 @@ def main():
             print("Batch reconstruction MSE (step %d): %g" % (i, mse_batch))
             
             # reconstruct each row
-            ex = ex0 ; 
+            ex_pred = np.copy(ex0_half) ; 
             for k in range(IMAGE_SIZE-NUM_TIMESTEPS):
-                ex_new = y_lstm.eval(feed_dict={x: [ex[k:k+NUM_TIMESTEPS,:]]})
-                ex[k+NUM_TIMESTEPS] = ex_new
-            plt.imshow(ex)
+                ex_new = y_lstm.eval(feed_dict={x: [ex_pred[k:k+NUM_TIMESTEPS,:]]})
+                ex_pred[k+NUM_TIMESTEPS] = ex_new
+            
+            plt.subplot(1,3,1)
+            plt.imshow(ex0)
+            plt.subplot(1,3,2)
+            plt.imshow(ex0_half)
+            plt.subplot(1,3,3)
+            plt.imshow(ex_pred)
             plt.show()
             
 main()
