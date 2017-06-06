@@ -11,6 +11,4 @@ The repository includes:
 7. Batch normalization (BN): [code](bn.py)
 8. Recurrent neural network (RNN) using long short-term memory (LSTM) for classification: [code](lstm_class.py)
 9. RNN using LSTM for prediction/forecasting: [code](lstm_pred.py)
-10. Deep convolutional GAN (DCGAN): (coming soon)
-11. Super-resolution using DCGAN: (coming soon)
 
